@@ -3,10 +3,10 @@ import json
 from src import db
 
 
-products = Blueprint('products', __name__)
+subletters = Blueprint('subletters', __name__)
 
 # Get all the products from the database
-@products.route('/products', methods=['GET'])
+@subletters.route('/subletters', methods=['GET'])
 def get_products():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
@@ -32,7 +32,7 @@ def get_products():
     return jsonify(json_data)
 
 # get the top 5 products from the database
-@products.route('/mostExpensive')
+@subletters.route('/mostExpensive')
 def get_most_pop_products():
     cursor = db.get_db().cursor()
     query = '''

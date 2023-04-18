@@ -1,6 +1,7 @@
 #Project Phase 3
 
 # Create database
+DROP DATABASE IF EXISTS NU_Nest;
 CREATE DATABASE IF NOT EXISTS NU_Nest;
 
 # Grant Privileges
@@ -14,21 +15,21 @@ USE NU_Nest;
 CREATE TABLE Moderator_Account
 (
     weekly_hours int NOT NULL,
-    moderator_id int PRIMARY KEY
+    moderator_id INTEGER PRIMARY KEY AUTOINCREMENT 
 );
 
 # Create Housing Group
 CREATE TABLE Housing_Group
 (
     group_name varchar(50) UNIQUE NOT NULL,
-    group_id   int PRIMARY KEY
+    group_id   INTEGER PRIMARY KEY AUTOINCREMENT 
 );
 
 # Create Housing Account
 CREATE TABLE Housing_Account
 (
     student_status     boolean NOT NULL,
-    housing_account_id int PRIMARY KEY,
+    housing_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id           int,
     CONSTRAINT fk_1
         FOREIGN KEY (group_id) REFERENCES Housing_Group (group_id)
@@ -43,7 +44,7 @@ CREATE TABLE Users
     first_name           varchar(50)         NOT NULL,
     last_name            varchar(50)         NOT NULL,
     email_address        varchar(100) UNIQUE NOT NULL, # unique to user and must exist
-    user_id              int PRIMARY KEY,              # primary key
+    user_id              INTEGER PRIMARY KEY AUTOINCREMENT,              # primary key
     housing_account_id   int,
     moderator_account_id int,
     CONSTRAINT fk_2
@@ -101,7 +102,7 @@ CREATE TABLE User_Report
     issue         varchar(200) NOT NULL,
     resolved      boolean      NOT NULL,
     comment       varchar(500),
-    report_id     int PRIMARY KEY,
+    report_id     INTEGER PRIMARY KEY AUTOINCREMENT,
     reporter      int,
     reported_user int,
     CONSTRAINT fk_8
@@ -118,7 +119,7 @@ CREATE TABLE Message
     timestamp  datetime DEFAULT CURRENT_TIMESTAMP,
     subject    varchar(50),
     contents   varchar(500) NOT NULL,
-    message_id int PRIMARY KEY,
+    message_id INTEGER PRIMARY KEY AUTOINCREMENT,
     sender     int,
     receiver   int,
     CONSTRAINT fk_10
@@ -146,7 +147,7 @@ CREATE TABLE Sublet_Listing
     street           varchar(50),
     city             varchar(50) NOT NULL,
     subletter        int,
-    listing_id       int PRIMARY KEY,
+    listing_id       INTEGER PRIMARY KEY AUTOINCREMENT,
     CONSTRAINT fk_14
         FOREIGN KEY (subletter) REFERENCES Housing_Account (housing_account_id)
             ON UPDATE cascade ON DELETE cascade
@@ -160,7 +161,7 @@ CREATE TABLE Sublet_Offer
     rent          double  NOT NULL,
     time_sent     datetime DEFAULT CURRENT_TIMESTAMP,
     status        boolean NOT NULL,
-    offer_id      int PRIMARY KEY,
+    offer_id      INTEGER PRIMARY KEY AUTOINCREMENT,
     offering_user int,
     listing_id    int,
     CONSTRAINT fk_12
@@ -176,7 +177,7 @@ CREATE TABLE Comment
 (
     timestamp          datetime DEFAULT CURRENT_TIMESTAMP,
     text               varchar(500),
-    comment_id         int,
+    comment_id         INTEGER AUTOINCREMENT,
     reply_id           int,
     listing_id         int,
     housing_account_id int,
