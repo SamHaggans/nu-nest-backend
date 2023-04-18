@@ -30,12 +30,10 @@ def create_app():
         return "<h1>Welcome to the NU Nest App: Helping Huskies find their way home!</h1>"
 
     # Import the various routes
-    from src.views import views
     from src.sublettees.sublettees import sublettees
     from src.subletters.subletters  import subletters
 
     # Register the routes that we just imported so they can be properly handled
-    app.register_blueprint(views,       url_prefix='/v')
     app.register_blueprint(sublettees,   url_prefix='/sublettees')
     app.register_blueprint(subletters,    url_prefix='/subletters')
 

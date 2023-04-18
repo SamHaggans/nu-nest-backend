@@ -127,7 +127,7 @@ def delete_offer(id, offerid):
     return the_response
 
 # Edit a specific offer on specific listing
-@sublettees.route('/sublet_listing/<id>/offer<offerid>', methods=['PUT'])
+@sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['PUT'])
 def put_offer(id, offerid):
     new_start_date = request.json['start_date']
     new_end_date = request.json['end_date']
