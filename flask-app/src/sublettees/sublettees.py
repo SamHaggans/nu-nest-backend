@@ -60,9 +60,9 @@ def put_housing_account(id):
     new_group_id = request.json['group_id']
     cursor = db.get_db().cursor()
     cursor.execute('UPDATE Housing_Account\
-                    SET student_status =  {0}'.format(new_student_status)+'\
+                    SET student_status =  {0}'.format(new_student_status)+',\
                         group_id = {0}'.format(new_group_id)+'\
-                    WHERE housing_account_id = {0}'.format(id))
+                    WHERE housing_account_id = {0}'.format(id)+';')
     db.get_db().commit()
     the_response = make_response()
     the_response.status_code = 200
@@ -136,7 +136,7 @@ def post_offer(id):
 @sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['DELETE'])
 def delete_offer(id, offerid):
     cursor = db.get_db().cursor()
-    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+'')
+    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+';')
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
