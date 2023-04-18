@@ -9,14 +9,29 @@ sublettees = Blueprint('sublettees', __name__)
 @sublettees.route('/sublet_listings', methods=['GET'])
 def get_sublet_listings():
     cursor = db.get_db().cursor()
-    cursor.execute('select post_time, availability, description,\
-        rent, roommate_count, bedroom_count, bathroom_count, start_date,\
-        end_date, furnished_status, zipcode, street, city from Sublet_Listing')
+    cursor.execute('select listing_id, availability, bathroom_count, city, start_date, end_date, furnished_status, post_time, rent, roommate_count, zipcode from Sublet_Listing \
+        WHERE availability = 1')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
     for row in theData:
         json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get all users of the program
+@sublettees.route('/housing_account', methods=['GET'])
+def get_accounts():
+    cursor = db.get_db().cursor()
+    cursor.execute('select first_name, last_name, housing_account_id \
+        FROM Users where housing_account_id is not null')
+    row_headers = ["label", "value"]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, [f'{row[0]} {row[1]}', row[2]])))
     the_response = make_response(jsonify(json_data))
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
@@ -106,12 +121,11 @@ def post_offer(id):
     new_start_date = request.json['start_date']
     new_end_date = request.json['end_date']
     new_rent = request.json['rent']
-    new_status = request.json['status']
     new_offering_user = request.json['offering_user']
     cursor = db.get_db().cursor()
-    cursor.execute('INSERT INTO Sublet_Offer(start_date, end_date, status, offering_user, listing_id)\
-                   VALUES ({0}'.format(new_start_date)+', {0}'.format(new_end_date)+', \
-                    {0}'.format(new_rent)+', {0}'.format(new_status)+', {0}'.format(new_offering_user)+', {0}'.format(id)+'')      
+    cursor.execute(f'INSERT INTO Sublet_Offer (start_date, end_date, rent, status, offering_user, listing_id)\
+                   VALUES ("{new_start_date.split("T")[0]}", "{new_end_date.split("T")[0]}", \
+                    {new_rent}, 0, "{int(new_offering_user)}", {id})')      
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200

@@ -5,56 +5,17 @@ from src import db
 
 subletters = Blueprint('subletters', __name__)
 
-# Get all the products from the database
-@subletters.route('/subletters', methods=['GET'])
-def get_products():
-    # get a cursor object from the database
+@subletters.route('/sublet_listing/<id>/offers', methods=['GET'])
+def get_offers(id):
+    
     cursor = db.get_db().cursor()
-
-    # use cursor to query the database for a list of products
-    cursor.execute('SELECT id, product_code, product_name, list_price FROM products')
-
-    # grab the column headers from the returned data
-    column_headers = [x[0] for x in cursor.description]
-
-    # create an empty dictionary object to use in 
-    # putting column headers together with data
+    cursor.execute(f'select * from Sublet_Offer where Listing_id = {id}')
+    row_headers = [x[0] for x in cursor.description]
     json_data = []
-
-    # fetch all the data from the cursor
     theData = cursor.fetchall()
-
-    # for each of the rows, zip the data elements together with
-    # the column headers. 
     for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
-
-# get the top 5 products from the database
-@subletters.route('/mostExpensive')
-def get_most_pop_products():
-    cursor = db.get_db().cursor()
-    query = '''
-        SELECT product_code, product_name, list_price, reorder_level
-        FROM products
-        ORDER BY list_price DESC
-        LIMIT 5
-    '''
-    cursor.execute(query)
-       # grab the column headers from the returned data
-    column_headers = [x[0] for x in cursor.description]
-
-    # create an empty dictionary object to use in 
-    # putting column headers together with data
-    json_data = []
-
-    # fetch all the data from the cursor
-    theData = cursor.fetchall()
-
-    # for each of the rows, zip the data elements together with
-    # the column headers. 
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
