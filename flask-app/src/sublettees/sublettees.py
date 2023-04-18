@@ -3,7 +3,7 @@ import json
 from src import db
 
 # Those looking for housing
-sublettees = Blueprint('subettees', __name__)
+sublettees = Blueprint('sublettees', __name__)
 
 # Get all sublet listings from the DB
 @sublettees.route('/sublet_listings', methods=['GET'])
@@ -11,7 +11,7 @@ def get_sublet_listings():
     cursor = db.get_db().cursor()
     cursor.execute('select post_time, availability, description,\
         rent, roommate_count, bedroom_count, bathroom_count, start_date,\
-        end_date, furnished_status, zipcode, street, city, from Sublet_Listing')
+        end_date, furnished_status, zipcode, street, city from Sublet_Listing')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -43,7 +43,7 @@ def get_housing_account(id):
 def put_housing_account(id):
     new_student_status = request.json['student_status']
     new_group_id = request.json['group_id']
-    cursor = db.get_bd().cursor()
+    cursor = db.get_db().cursor()
     cursor.execute('UPDATE Housing_Account\
                     SET student_status =  {0}'.format(new_student_status)+'\
                         group_id = {0}'.format(new_group_id)+'\
@@ -76,7 +76,7 @@ def post_message():
     new_contents = request.json['contents']
     new_sender = request.json['sender']
     new_receiver = request.json['receiver']
-    cursor = db.get_bd().cursor()
+    cursor = db.get_db().cursor()
     cursor.execute('INSERT INTO Message(subject, contents, sender, receiver)\
                    VALUES ({0}'.format(new_subject)+', {0}'.format(new_contents)+', {0}'.format(new_sender)+', {0}'.format(new_receiver)+'')      
     db.get_db().commit()      
@@ -87,11 +87,11 @@ def post_message():
 
 # Post messages to specific user 
 @sublettees.route('/message/<id>', methods=['POST'])
-def post_message(id):
+def post_user_message(id):
     new_subject = request.json['subject']
     new_contents = request.json['contents']
     new_sender = request.json['sender']
-    cursor = db.get_bd().cursor()
+    cursor = db.get_db().cursor()
     cursor.execute('INSERT INTO Message(subject, contents, sender, receiver)\
                    VALUES ({0}'.format(new_subject)+', {0}'.format(new_contents)+', {0}'.format(new_sender)+', {0}'.format(id)+'')      
     db.get_db().commit()      
@@ -102,13 +102,13 @@ def post_message(id):
 
 # Post sublet offer on specific listing
 @sublettees.route('/sublet_listing/<id>/offer', methods=['POST'])
-def post_message():
+def post_offer(id):
     new_start_date = request.json['start_date']
     new_end_date = request.json['end_date']
     new_rent = request.json['rent']
     new_status = request.json['status']
     new_offering_user = request.json['offering_user']
-    cursor = db.get_bd().cursor()
+    cursor = db.get_db().cursor()
     cursor.execute('INSERT INTO Sublet_Offer(start_date, end_date, status, offering_user, listing_id)\
                    VALUES ({0}'.format(new_start_date)+', {0}'.format(new_end_date)+', \
                     {0}'.format(new_rent)+', {0}'.format(new_status)+', {0}'.format(new_offering_user)+', {0}'.format(id)+'')      
@@ -119,7 +119,7 @@ def post_message():
     return the_response
 
 # Delete specific offer on sublet listing with specific id
-@sublettees.route('/sublet_listing/<id>/offer/<offerid', method=['DELETE'])
+@sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['DELETE'])
 def delete_offer(id, offerid):
     cursor = db.get_db().cursor()
     cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+'')
@@ -130,8 +130,8 @@ def delete_offer(id, offerid):
     return the_response
 
 # Delete specific message from specific user
-@sublettees.route('/message/<userid>/<messageid>', method=['DELETE'])
-def delete_offer(userid, messageid):
+@sublettees.route('/message/<userid>/<messageid>', methods=['DELETE'])
+def delete_user_message(userid, messageid):
     cursor = db.get_db().cursor()
     cursor.execute('DELETE FROM Message WHERE sender= {0}'.format(userid)+' AND message_id= {0}'.format(messageid)+'')
     db.get_db().commit()      
