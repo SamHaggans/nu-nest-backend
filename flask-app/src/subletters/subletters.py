@@ -67,12 +67,34 @@ def put_sublet_listing():
                         street = {0}'.format(new_street)+',\
                         city = {0}'.format(new_city)+', \
                         subletter = {0}'.format(new_subletter)+'\
-                    WHERE housing_account_id = {0}'.format(id)+'')
+                    WHERE listing_id = {0}'.format(id)+'')
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+# Delete specific sublet listing
+@subletters.route('/sublet_listing/<id>', methods=['DELETE'])
+def delete_offer(id, offerid):
+    cursor = db.get_db().cursor()
+    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+';')
+    db.get_db().commit()      
+    the_response = make_response()
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Post a new user report on a specific user
+
+# Post a new user rating on a specific user 
+
+# Edit sublet listing offer 
+
+# Get all offers on a sublet listing
+
+# Get informations on a specfic offer 
+
 
 # Get all the products from the database
 @subletters.route('/subletters', methods=['GET'])

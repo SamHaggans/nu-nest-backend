@@ -122,7 +122,7 @@ def post_offer(id):
 @sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['DELETE'])
 def delete_offer(id, offerid):
     cursor = db.get_db().cursor()
-    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+'')
+    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+';')
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
