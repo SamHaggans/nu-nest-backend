@@ -36,9 +36,20 @@ def post_sublet_listing():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Edit a specific sublet listing 
-@subletters.route('/sublet_listing/<id>', methods=['PUT'])
-def put_sublet_listing():
+# Delete specific sublet listing
+@subletters.route('/sublet_listing/<id>', methods=['DELETE'])
+def delete_offer(id, offerid):
+    cursor = db.get_db().cursor()
+    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+';')
+    db.get_db().commit()      
+    the_response = make_response()
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Post a new user report on a specific user
+@subletters.route('/sublet_listing', methods=['POST'])
+def post_sublet_listing():
     new_availability = request.json['availability']
     new_roommate_count = request.json['roommate_count']
     new_bathroom_count = request.json['bathroom_count']
@@ -53,39 +64,19 @@ def put_sublet_listing():
     new_city = request.json['city']
     new_subletter = request.json['subletter']
     cursor = db.get_bd().cursor()
-    cursor.execute('UPDATE Sublet_Listing \
-                    SET availability = {0}'.format(new_availability)+', \
-                        roommate_count = {0}'.format(new_roommate_count)+',\
-                        bathroom_count = {0}'.format(new_bathroom_count)+',\
-                        bedroom_count = {0}'.format(new_bedroom_count)+',\
-                        start_date = {0}'.format(new_start_date)+',\
-                        end_date = {0}'.format(new_end_date)+',\
-                        furnished_status = {0}'.format(new_furnished_status)+',\
-                        description = {0}'.format(new_description)+',\
-                        rent = {0}'.format(new_rent)+',\
-                        zipcode = {0}'.format(new_zipcode)+', \
-                        street = {0}'.format(new_street)+',\
-                        city = {0}'.format(new_city)+', \
-                        subletter = {0}'.format(new_subletter)+'\
-                    WHERE listing_id = {0}'.format(id)+'')
+    cursor.execute('INSERT INTO Sublet_Listing(availability, roommate_count, bedroom_count, bathroom_count, \
+                   start_date, end_date, furnished_status, description, rent, zipcode, street, city, subletter)\
+                   VALUES ({0}'.format(new_availability)+', {0}'.format(new_roommate_count)+',\
+                     {0}'.format(new_bathroom_count)+', {0}'.format(new_bedroom_count)+', \
+                     {0}'.format(new_start_date)+', {0}'.format(new_end_date)+', \
+                     {0}'.format(new_furnished_status)+', {0}'.format(new_description)+', \
+                     {0}'.format(new_rent)+', {0}'.format(new_zipcode)+', \
+                     {0}'.format(new_street)+', {0}'.format(new_city)+', {0}'.format(new_subletter)+')')
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
-
-# Delete specific sublet listing
-@subletters.route('/sublet_listing/<id>', methods=['DELETE'])
-def delete_offer(id, offerid):
-    cursor = db.get_db().cursor()
-    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+';')
-    db.get_db().commit()      
-    the_response = make_response()
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
-# Post a new user report on a specific user
 
 # Post a new user rating on a specific user 
 
