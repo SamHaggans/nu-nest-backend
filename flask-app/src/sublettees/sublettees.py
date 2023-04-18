@@ -37,11 +37,13 @@ def get_accounts():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get housing account detail for a housing account with particular ID
+# Get housing account details for a housing account with particular ID
 @sublettees.route('/housing_account/<id>', methods=['GET'])
 def get_housing_account(id):
     cursor = db.get_db().cursor()
-    cursor.execute('select * from Housing_Account where housing_account_id = {0}'.format(id))
+    cursor.execute('select * \
+                    from Users join Housing_Account \
+                    where housing_account_id = {0}'.format(id)+';')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -52,7 +54,7 @@ def get_housing_account(id):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Update a housing account 
+# Update a particular housing account 
 @sublettees.route('/housing_account/<id>', methods=['PUT'])
 def put_housing_account(id):
     new_student_status = request.json['student_status']
@@ -67,8 +69,6 @@ def put_housing_account(id):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
-
-# Update housing account 
 
 # Get sublet listing detail for a specific listing from an ID
 @sublettees.route('/sublet_listing/<id>', methods=['GET'])
