@@ -1,50 +1,50 @@
-#Project Phase 3
+-- Project Phase 3
 
-# Create database
+-- Create database
 DROP DATABASE IF EXISTS NU_Nest;
 CREATE DATABASE IF NOT EXISTS NU_Nest;
 
-# Grant Privileges
+-- Grant Privileges
 grant all privileges on NU_Nest.* to 'webapp'@'%';
 flush privileges;
 
-# Use database
+-- Use database
 USE NU_Nest;
 
-# Create Moderator Account
+-- Create Moderator Account
 CREATE TABLE Moderator_Account
 (
     weekly_hours int NOT NULL,
-    moderator_id INTEGER PRIMARY KEY AUTOINCREMENT 
+    moderator_id INTEGER PRIMARY KEY Auto_Increment 
 );
 
-# Create Housing Group
+-- Create Housing Group
 CREATE TABLE Housing_Group
 (
     group_name varchar(50) UNIQUE NOT NULL,
-    group_id   INTEGER PRIMARY KEY AUTOINCREMENT 
+    group_id   INTEGER PRIMARY KEY Auto_Increment 
 );
 
-# Create Housing Account
+-- Create Housing Account
 CREATE TABLE Housing_Account
 (
     student_status     boolean NOT NULL,
-    housing_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    housing_account_id INTEGER PRIMARY KEY Auto_Increment,
     group_id           int,
     CONSTRAINT fk_1
         FOREIGN KEY (group_id) REFERENCES Housing_Group (group_id)
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create users
+-- Create users
 CREATE TABLE Users
 (
     birthdate            date                NOT NULL,
     gender               varchar(50),
     first_name           varchar(50)         NOT NULL,
     last_name            varchar(50)         NOT NULL,
-    email_address        varchar(100) UNIQUE NOT NULL, # unique to user and must exist
-    user_id              INTEGER PRIMARY KEY AUTOINCREMENT,              # primary key
+    email_address        varchar(100) UNIQUE NOT NULL, -- unique to user and must exist
+    user_id              INTEGER PRIMARY KEY Auto_Increment,              -- primary key
     housing_account_id   int,
     moderator_account_id int,
     CONSTRAINT fk_2
@@ -55,7 +55,7 @@ CREATE TABLE Users
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Rating (dependent)
+-- Create Rating (dependent)
 CREATE TABLE Rating
 (
     value       int NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE Rating
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Login (dependent)
+-- Create Login (dependent)
 CREATE TABLE Login
 (
     password varchar(50) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE Login
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Roommate Preference (dependent)
+-- Create Roommate Preference (dependent)
 CREATE TABLE Roommate_Preference
 (
     importance      int NOT NULL,
@@ -96,13 +96,13 @@ CREATE TABLE Roommate_Preference
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create User Report
+-- Create User Report
 CREATE TABLE User_Report
 (
     issue         varchar(200) NOT NULL,
     resolved      boolean      NOT NULL,
     comment       varchar(500),
-    report_id     INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id     INTEGER PRIMARY KEY Auto_Increment,
     reporter      int,
     reported_user int,
     CONSTRAINT fk_8
@@ -113,13 +113,13 @@ CREATE TABLE User_Report
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Message
+-- Create Message
 CREATE TABLE Message
 (
     timestamp  datetime DEFAULT CURRENT_TIMESTAMP,
     subject    varchar(50),
     contents   varchar(500) NOT NULL,
-    message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    message_id INTEGER PRIMARY KEY Auto_Increment,
     sender     int,
     receiver   int,
     CONSTRAINT fk_10
@@ -130,7 +130,7 @@ CREATE TABLE Message
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Sublet_Listing
+-- Create Sublet_Listing
 CREATE TABLE Sublet_Listing
 (
     post_time        datetime DEFAULT CURRENT_TIMESTAMP,
@@ -147,13 +147,13 @@ CREATE TABLE Sublet_Listing
     street           varchar(50),
     city             varchar(50) NOT NULL,
     subletter        int,
-    listing_id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id       INTEGER PRIMARY KEY Auto_Increment,
     CONSTRAINT fk_14
         FOREIGN KEY (subletter) REFERENCES Housing_Account (housing_account_id)
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Sublet Offer
+-- Create Sublet Offer
 CREATE TABLE Sublet_Offer
 (
     start_date    date    NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE Sublet_Offer
     rent          double  NOT NULL,
     time_sent     datetime DEFAULT CURRENT_TIMESTAMP,
     status        boolean NOT NULL,
-    offer_id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    offer_id      INTEGER PRIMARY KEY Auto_Increment,
     offering_user int,
     listing_id    int,
     CONSTRAINT fk_12
@@ -172,12 +172,12 @@ CREATE TABLE Sublet_Offer
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Create Comment (dependent)
+-- Create Comment (dependent)
 CREATE TABLE Comment
 (
     timestamp          datetime DEFAULT CURRENT_TIMESTAMP,
     text               varchar(500),
-    comment_id         INTEGER AUTOINCREMENT,
+    comment_id         INTEGER Auto_Increment,
     reply_id           int,
     listing_id         int,
     housing_account_id int,
@@ -193,7 +193,7 @@ CREATE TABLE Comment
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Bridge between Moderator Account and User Report
+-- Bridge between Moderator Account and User Report
 CREATE TABLE Moderator_Review
 (
     action       varchar(500) NOT NULL,
@@ -209,7 +209,7 @@ CREATE TABLE Moderator_Review
 
 );
 
-# Bridge between Moderator Account and Sublet Listing
+-- Bridge between Moderator Account and Sublet Listing
 CREATE TABLE Moderator_Edit
 (
     change_description varchar(500) NOT NULL,
@@ -225,7 +225,7 @@ CREATE TABLE Moderator_Edit
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Images (multivalued)
+-- Images (multivalued)
 CREATE TABLE Images
 (
     image_file_name varchar(50),
@@ -236,9 +236,9 @@ CREATE TABLE Images
             ON UPDATE cascade ON DELETE cascade
 );
 
-# Sample Data
+-- Sample Data
 
-# Moderator Account Samples
+-- Moderator Account Samples
 INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (1,8.8);
 INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (2,19.2);
 INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (3,34.3);
@@ -290,7 +290,7 @@ INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (48,10.3);
 INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (49,27.8);
 INSERT INTO Moderator_Account(moderator_id,weekly_hours) VALUES (50,3.5);
 
-# Housing Group Samples
+-- Housing Group Samples
 INSERT INTO Housing_Group(group_name,group_id) VALUES ('Schaden, Auer and Bernier',1);
 INSERT INTO Housing_Group(group_name,group_id) VALUES ('Koss Inc',2);
 INSERT INTO Housing_Group(group_name,group_id) VALUES ('Grant, Hauck and Veum',3);
@@ -342,7 +342,7 @@ INSERT INTO Housing_Group(group_name,group_id) VALUES ('Beatty Group',48);
 INSERT INTO Housing_Group(group_name,group_id) VALUES ('Gottlieb Inc',49);
 INSERT INTO Housing_Group(group_name,group_id) VALUES ('Mitchell-Bradtke',50);
 
-# Housing Account Samples
+-- Housing Account Samples
 INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (true,1,34);
 INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (false,2,NULL);
 INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (false,3,NULL);
@@ -394,7 +394,7 @@ INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (
 INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (true,49,36);
 INSERT INTO Housing_Account(student_status,housing_account_id,group_id) VALUES (false,50,NULL);
 
-# Users Samples
+-- Users Samples
 INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,housing_account_id,moderator_account_id) VALUES ('1999-09-19 12:35:57','Male','Stinky','Nodin','snodin0@bandcamp.com',1,41,NULL);
 INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,housing_account_id,moderator_account_id) VALUES ('1995-08-30 06:57:34','Male','Maximilien','Atthowe','matthowe1@ftc.gov',2,43,NULL);
 INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,housing_account_id,moderator_account_id) VALUES ('1999-04-21 02:57:37','Non-binary','Valenka','Glasheen','vglasheen2@google.ru',3,11,23);
@@ -446,7 +446,7 @@ INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,ho
 INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,housing_account_id,moderator_account_id) VALUES ('1997-04-23 14:25:25','Female','Zarla','Bingell','zbingell1c@psu.edu',49,50,36);
 INSERT INTO Users(birthdate,gender,first_name,last_name,email_address,user_id,housing_account_id,moderator_account_id) VALUES ('2000-03-19 14:35:52','Female','Sarene','Booth-Jarvis','sboothjarvis1d@google.co.uk',50,16,NULL);
 
-# Rating Samples
+-- Rating Samples
 INSERT INTO Rating(value,description,rater,rated_user) VALUES (3,'leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut',3,1);
 INSERT INTO Rating(value,description,rater,rated_user) VALUES (4,'id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum',6,38);
 INSERT INTO Rating(value,description,rater,rated_user) VALUES (2,'faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis',43,29);
@@ -498,7 +498,7 @@ INSERT INTO Rating(value,description,rater,rated_user) VALUES (7,'mi in porttito
 INSERT INTO Rating(value,description,rater,rated_user) VALUES (4,'felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus',4,4);
 INSERT INTO Rating(value,description,rater,rated_user) VALUES (3,'leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel',25,11);
 
-# Login Samples
+-- Login Samples
 INSERT INTO Login(password,user_id,username) VALUES ('fs9Wib',1,'dellsom0');
 INSERT INTO Login(password,user_id,username) VALUES ('k7GFlC3vxWSN',2,'cjoselovitch1');
 INSERT INTO Login(password,user_id,username) VALUES ('TaQciOk8',3,'rbudik2');
@@ -550,7 +550,7 @@ INSERT INTO Login(password,user_id,username) VALUES ('ZCOt5CX1l0',48,'ajestico1b
 INSERT INTO Login(password,user_id,username) VALUES ('2eeJnE9',49,'hcolthurst1c');
 INSERT INTO Login(password,user_id,username) VALUES ('L9M75cj',50,'train1d');
 
-# Roommate Preference Samples
+-- Roommate Preference Samples
 INSERT INTO Roommate_Preference(importance,description,preference_name,user) VALUES (8,'nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in','tristique est et',11);
 INSERT INTO Roommate_Preference(importance,description,preference_name,user) VALUES (9,'non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in','massa',33);
 INSERT INTO Roommate_Preference(importance,description,preference_name,user) VALUES (10,'ut suscipit a','eu mi nulla',45);
@@ -602,7 +602,7 @@ INSERT INTO Roommate_Preference(importance,description,preference_name,user) VAL
 INSERT INTO Roommate_Preference(importance,description,preference_name,user) VALUES (10,'convallis morbi odio odio','montes',31);
 INSERT INTO Roommate_Preference(importance,description,preference_name,user) VALUES (5,'eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa','natoque',11);
 
-# User Report Samples
+-- User Report Samples
 INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user) VALUES ('mi nulla ac enim',false,'quisque erat eros viverra eget congue eget semper rutrum nulla',1,44,34);
 INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user) VALUES ('varius integer ac leo pellentesque ultrices mattis odio donec vitae',true,'luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui',2,9,5);
 INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user) VALUES ('velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis',false,'ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est',3,50,14);
@@ -654,7 +654,7 @@ INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user)
 INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user) VALUES ('cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis',true,'placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget',49,13,2);
 INSERT INTO User_Report(issue,resolved,comment,report_id,reporter,reported_user) VALUES ('sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet',true,'ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor',50,15,2);
 
-# Message Samples
+-- Message Samples
 INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUES ('2022-12-27 08:10:27','amet sapien','tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum',1,43,38);
 INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUES ('2023-01-17 18:44:11','amet sapien dignissim vestibulum vestibulum','sapien urna pretium nisl ut volutpat sapien arcu',2,36,43);
 INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUES ('2022-08-04 18:39:09','pulvinar nulla pede ullamcorper augue','accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia',3,9,20);
@@ -706,7 +706,7 @@ INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUE
 INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUES ('2022-05-13 20:00:44','luctus cum sociis natoque penatibus','potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam',49,5,3);
 INSERT INTO Message(timestamp,subject,contents,message_id,sender,receiver) VALUES ('2022-04-30 23:34:21','pellentesque ultrices phasellus id','vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet',50,36,43);
 
-# Sublet Listing Samples
+-- Sublet Listing Samples
 INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,start_date,end_date,furnished_status,description,rent,zipcode,street,city,subletter,listing_id) VALUES ('2023-01-26 08:45:54',false,7,3,'2023-08-15 14:31:48','2024-01-23 02:42:58',false,'orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus',1256,16550,'Troy','Erie',39,1);
 INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,start_date,end_date,furnished_status,description,rent,zipcode,street,city,subletter,listing_id) VALUES ('2022-11-02 00:57:50',true,9,4,'2023-07-01 05:23:53','2024-01-29 11:28:47',false,'id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien',3669,NULL,'Harbort','Calibishie',27,2);
 INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,start_date,end_date,furnished_status,description,rent,zipcode,street,city,subletter,listing_id) VALUES ('2022-08-14 22:12:03',true,8,4,'2023-08-17 20:25:26','2024-01-11 10:19:35',true,'consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales',3751,45149,'Schiller','Essen',32,3);
@@ -758,7 +758,7 @@ INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,
 INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,start_date,end_date,furnished_status,description,rent,zipcode,street,city,subletter,listing_id) VALUES ('2022-09-09 07:01:00',false,8,4,'2023-06-05 07:24:34','2024-03-17 10:24:54',false,'viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui',1475,NULL,'Bashford','Vĩnh Thuận',17,49);
 INSERT INTO Sublet_Listing(post_time,availability,roommate_count,bathroom_count,start_date,end_date,furnished_status,description,rent,zipcode,street,city,subletter,listing_id) VALUES ('2022-12-19 10:13:23',false,9,1,'2023-07-18 14:17:44','2023-10-09 21:26:01',true,'ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut',808,7604,'Myrtle','Péruwelz',8,50);
 
-# Sublet Offer Samples
+-- Sublet Offer Samples
 INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offering_user,listing_id) VALUES ('2023-04-06 18:42:53','2024-01-03 12:24:03',1075,'2023-04-13 06:05:13',false,1,42,2);
 INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offering_user,listing_id) VALUES ('2023-05-14 16:07:20','2024-02-03 17:49:35',514,'2023-04-02 17:30:28',false,2,35,35);
 INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offering_user,listing_id) VALUES ('2023-07-10 07:51:25','2023-09-24 00:14:08',2203,'2023-04-03 16:21:27',false,3,4,47);
@@ -810,7 +810,7 @@ INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offe
 INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offering_user,listing_id) VALUES ('2023-04-10 09:01:59','2023-09-04 12:25:07',4314,'2023-04-07 09:10:09',true,49,11,29);
 INSERT INTO Sublet_Offer(start_date,end_date,rent,time_sent,status,offer_id,offering_user,listing_id) VALUES ('2023-04-22 17:41:56','2023-11-12 05:21:45',4192,'2023-04-05 02:40:13',false,50,32,25);
 
-# Comment Samples
+-- Comment Samples
 INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_account_id) VALUES ('2023-05-30 12:01:56','sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy',1,NULL,3,32);
 INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_account_id) VALUES ('2023-04-30 21:46:31','interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat',2,NULL,25,42);
 INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_account_id) VALUES ('2023-04-20 01:55:00','primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue',3,2,25,44);
@@ -862,7 +862,7 @@ INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_accoun
 INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_account_id) VALUES ('2023-05-30 23:41:57','nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien',49,NULL,14,34);
 INSERT INTO Comment(timestamp,text,comment_id,reply_id,listing_id,housing_account_id) VALUES ('2023-04-07 01:30:31','elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus',50,NULL,10,25);
 
-# Moderator Review Samples
+-- Moderator Review Samples
 INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('ipsum dolor',31,48);
 INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('at velit eu est congue elementum in hac habitasse platea dictumst',19,26);
 INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio',4,9);
@@ -914,7 +914,7 @@ INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('a pede posu
 INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('laoreet ut rhoncus aliquet pulvinar sed nisl',9,23);
 INSERT INTO Moderator_Review(action,moderator_id,report_id) VALUES ('pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum',49,33);
 
-# Moderator Edit Samples
+-- Moderator Edit Samples
 INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id) VALUES ('vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla','2023-04-25 16:05:34',45,8);
 INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id) VALUES ('nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque','2023-04-30 17:14:41',31,36);
 INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id) VALUES ('sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum','2023-04-11 07:23:44',36,35);
@@ -966,7 +966,7 @@ INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id)
 INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id) VALUES ('in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat','2023-04-09 00:00:24',33,21);
 INSERT INTO Moderator_Edit(change_description,timestamp,moderator_id,listing_id) VALUES ('ipsum primis in faucibus orci luctus et ultrices posuere','2023-04-28 15:09:30',10,39);
 
-# Images Samples
+-- Images Samples
 INSERT INTO Images(image_file_name,listing_id) VALUES ('Hac.ppt',28);
 INSERT INTO Images(image_file_name,listing_id) VALUES ('Aenean.mp3',40);
 INSERT INTO Images(image_file_name,listing_id) VALUES ('PhasellusSit.xls',4);
