@@ -5,7 +5,7 @@ from src import db
 # Those looking for housing
 sublettees = Blueprint('sublettees', __name__)
 
-# Get all sublet listings from the DB
+# Get all available sublet listings from the DB
 @sublettees.route('/sublet_listings', methods=['GET'])
 def get_sublet_listings():
     cursor = db.get_db().cursor()
@@ -21,7 +21,7 @@ def get_sublet_listings():
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get all users of the program
+# Get all housing account users of the program
 @sublettees.route('/housing_account', methods=['GET'])
 def get_accounts():
     cursor = db.get_db().cursor()
@@ -54,16 +54,29 @@ def get_housing_account(id):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Update a particular housing account 
+# Update a particular housing account user
 @sublettees.route('/housing_account/<id>', methods=['PUT'])
 def put_housing_account(id):
     new_student_status = request.json['student_status']
     new_group_id = request.json['group_id']
+    new_birthdate = request.json['birthdate']
+    new_gender = request.json['gender']
+    new_first_name = request.json['first_name']
+    new_last_name = request.json['last_name']
+    new_email_address = request.json['email_address']
     cursor = db.get_db().cursor()
     cursor.execute('UPDATE Housing_Account\
                     SET student_status =  {0}'.format(new_student_status)+',\
-                        group_id = {0}'.format(new_group_id)+'\
-                    WHERE housing_account_id = {0}'.format(id)+';')
+                        group_id = {0}'.format(new_group_id)+',\
+                    WHERE housing_account_id = {0}'.format(id)+'; \
+                    \
+                     UPDATE Users\
+                    SET birthdate =  {0}'.format(new_birthdate)+',\
+                        gender = {0}'.format(new_gender)+',\
+                        first_name = {0}'.format(new_first_name)+',\
+                        last_name = {0}'.format(new_last_name)+',\
+                        email_address = {0}'.format(new_email_address)+'\
+                    WHERE housing_account_id = {0}'.format(id)+'; ')
     db.get_db().commit()
     the_response = make_response()
     the_response.status_code = 200
@@ -113,38 +126,18 @@ def delete_offer(id, offerid):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Edit a specific sublet listing 
-@sublettees.route('/sublet_listing/<id>', methods=['PUT'])
-def put_sublet_listing():
-    new_availability = request.json['availability']
-    new_roommate_count = request.json['roommate_count']
-    new_bathroom_count = request.json['bathroom_count']
-    new_bedroom_count = request.json['bedroom_count']
+# Edit a specific offer on specific listing
+@sublettees.route('/sublet_listing/<id>/offer<offerid>', methods=['PUT'])
+def put_offer(id, offerid):
     new_start_date = request.json['start_date']
     new_end_date = request.json['end_date']
-    new_furnished_status = request.json['furnished_status']
-    new_description = request.json['description']
     new_rent = request.json['rent']
-    new_zipcode = request.json['zipcode']
-    new_street = request.json['street']
-    new_city = request.json['city']
-    new_subletter = request.json['subletter']
-    cursor = db.get_bd().cursor()
-    cursor.execute('UPDATE Sublet_Listing \
-                    SET availability = {0}'.format(new_availability)+', \
-                        roommate_count = {0}'.format(new_roommate_count)+',\
-                        bathroom_count = {0}'.format(new_bathroom_count)+',\
-                        bedroom_count = {0}'.format(new_bedroom_count)+',\
-                        start_date = {0}'.format(new_start_date)+',\
+    cursor = db.get_db().cursor()
+    cursor.execute('UPDATE Sublet_Offer \
+                   SET start_date =  {0}'.format(new_start_date)+',\
                         end_date = {0}'.format(new_end_date)+',\
-                        furnished_status = {0}'.format(new_furnished_status)+',\
-                        description = {0}'.format(new_description)+',\
-                        rent = {0}'.format(new_rent)+',\
-                        zipcode = {0}'.format(new_zipcode)+', \
-                        street = {0}'.format(new_street)+',\
-                        city = {0}'.format(new_city)+', \
-                        subletter = {0}'.format(new_subletter)+'\
-                    WHERE listing_id = {0}'.format(id)+'')
+                        rent = {0}'.format(new_rent)+'\
+                    WHERE listing_id = {0}'.format(id)+'AND offering_user = {0}'.format(offerid)+';')  
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
