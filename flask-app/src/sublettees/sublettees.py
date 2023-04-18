@@ -45,9 +45,9 @@ def put_housing_account(id):
     new_group_id = request.json['group_id']
     cursor = db.get_db().cursor()
     cursor.execute('UPDATE Housing_Account\
-                    SET student_status =  {0}'.format(new_student_status)+'\
+                    SET student_status =  {0}'.format(new_student_status)+',\
                         group_id = {0}'.format(new_group_id)+'\
-                    WHERE housing_account_id = {0}'.format(id))
+                    WHERE housing_account_id = {0}'.format(id)+';')
     db.get_db().commit()
     the_response = make_response()
     the_response.status_code = 200
@@ -111,7 +111,7 @@ def post_offer(id):
     cursor = db.get_db().cursor()
     cursor.execute('INSERT INTO Sublet_Offer(start_date, end_date, status, offering_user, listing_id)\
                    VALUES ({0}'.format(new_start_date)+', {0}'.format(new_end_date)+', \
-                    {0}'.format(new_rent)+', {0}'.format(new_status)+', {0}'.format(new_offering_user)+', {0}'.format(id)+'')      
+                    {0}'.format(new_rent)+', {0}'.format(new_status)+', {0}'.format(new_offering_user)+', {0}'.format(id)+')')      
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
