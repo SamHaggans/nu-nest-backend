@@ -23,6 +23,5 @@ Sam Haggans - haggans.s@northeastern.edu
 ## NOTE
 This project was created as part of our CS 3200 database design course.
 
-The front-end code for this application, using Appsmith, can be found here:
-https://github.com/SamHaggans/nu-nest-backend.git
+The front-end code for this application, using Appsmith, can be found [here](https://github.com/SamHaggans/nu-nest-backend.git):
 
