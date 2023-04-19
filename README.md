@@ -8,9 +8,7 @@ Most students currently need to post in online communities like Facebook and Red
 Users offering sublet or roommate openings on NU Nest will be able to create postings of their apartments and specify attributes like size, location, and cost. Users who are looking to browse housing options will be able to filter and search specific attributes they are looking for and signal interest to connect with offerors. Users will also have the option to search for roommates (off-campus housing only) if they have a housing option in mind but need one or more people. Our platform will not offer lease/legal support – our focal point is creating a platform for users to make connections and hope they will be able to work out logistical details on their own. Moderators will review flagged posts and flagged users for inappropriate content and can edit listings if needed. This new application will enhance the process of connecting students with compatible housing needs around Northeastern University’s Boston campus. 
 
 ## VIDEO DEMO
-Visit the link below to watch a brief video including demonstrations of Appsmith pages as well as some additional information about our team and idea behind the application!
-
-https://drive.google.com/file/d/18omgaNqJVq-GnTzlwPiS4KlvbmzbYamm/view?usp=sharing
+Visit this [link](https://drive.google.com/file/d/18omgaNqJVq-GnTzlwPiS4KlvbmzbYamm/view?usp=sharing) to watch a brief video including demonstrations of Appsmith pages as well as some additional information about our team and idea behind the application!
 
 
 ## CONTACT US
