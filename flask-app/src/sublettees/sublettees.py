@@ -9,7 +9,7 @@ sublettees = Blueprint('sublettees', __name__)
 @sublettees.route('/sublet_listings', methods=['GET'])
 def get_sublet_listings():
     cursor = db.get_db().cursor()
-    cursor.execute('select listing_id, availability, bathroom_count, city, start_date, end_date, furnished_status, post_time, rent, roommate_count, zipcode from Sublet_Listing \
+    cursor.execute('select listing_id, availability, bathroom_count, city, start_date, end_date, furnished_status, post_time, rent, roommate_count, zipcode, bedroom_count from Sublet_Listing \
         WHERE availability = 1')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
@@ -42,8 +42,8 @@ def get_accounts():
 def get_housing_account(id):
     cursor = db.get_db().cursor()
     cursor.execute('select * \
-                    from Users join Housing_Account \
-                    where Housing_Account.housing_account_id = {0}'.format(id)+'\
+                    from (Users as U join Housing_Account as H on U.housing_account_id = H.housing_account_id)\
+                    where H.housing_account_id = {0}'.format(id)+'\
                     AND user_id = {0};'.format(id))
     row_headers = [x[0] for x in cursor.description]
     json_data = []
@@ -56,7 +56,7 @@ def get_housing_account(id):
     return the_response
 
 # Update a particular housing account user
-@sublettees.route('/housing_account/<id>', methods=['PUT'])
+@sublettees.route('/housing_account/edit/<id>', methods=['PUT'])
 def put_housing_account(id):
     new_student_status = request.json['student_status']
     new_birthdate = request.json['birthdate']
@@ -100,10 +100,11 @@ def get_sublet_listing(id):
 # Post sublet offer on specific listing
 @sublettees.route('/sublet_listing/<id>/offer', methods=['POST'])
 def post_offer(id):
-    new_start_date = request.json['start_date']
-    new_end_date = request.json['end_date']
-    new_rent = request.json['rent']
-    new_offering_user = request.json['offering_user']
+    req_data = request.get_json()
+    new_start_date = req_data['start_date']
+    new_end_date = req_data['end_date']
+    new_rent = req_data['rent']
+    new_offering_user = req_data['offering_user']
     cursor = db.get_db().cursor()
     cursor.execute(f'INSERT INTO Sublet_Offer (start_date, end_date, rent, status, offering_user, listing_id)\
                    VALUES ("{new_start_date.split("T")[0]}", "{new_end_date.split("T")[0]}", \
@@ -115,10 +116,10 @@ def post_offer(id):
     return the_response
 
 # Delete specific offer on sublet listing with specific id
-@sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['DELETE'])
-def delete_offer(id, offerid):
+@sublettees.route('/sublet_listing/offer/<offerid>', methods=['DELETE'])
+def delete_offer(offerid):
     cursor = db.get_db().cursor()
-    cursor.execute('DELETE FROM Sublet_Offer WHERE listing_id= {0}'.format(id)+' AND offer_id= {0}'.format(offerid)+';')
+    cursor.execute('DELETE FROM Sublet_Offer WHERE offer_id={0}'.format(offerid))
     db.get_db().commit()      
     the_response = make_response()
     the_response.status_code = 200
@@ -126,8 +127,8 @@ def delete_offer(id, offerid):
     return the_response
 
 # Edit a specific offer on specific listing
-@sublettees.route('/sublet_listing/<id>/offer/<offerid>', methods=['PUT'])
-def put_offer(id, offerid):
+@sublettees.route('/sublet_listing/offer/edit/<offerid>', methods=['PUT'])
+def put_offer(offerid):
     new_start_date = request.json['start_date']
     new_end_date = request.json['end_date']
     new_rent = request.json['rent']
