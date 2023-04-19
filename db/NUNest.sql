@@ -62,7 +62,7 @@ CREATE TABLE Rating
     description varchar(500),
     rater       int,
     rated_user  int,
-    PRIMARY KEY (rater, rated_user),
+    rating_id int PRIMARY KEY Auto_Increment,
     CONSTRAINT fk_4
         FOREIGN KEY (rater) REFERENCES Users (user_id)
             ON UPDATE cascade ON DELETE cascade,
