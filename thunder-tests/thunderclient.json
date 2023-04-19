@@ -3,12 +3,174 @@
     "_id": "f6a4c719-d1cf-4f15-a21f-bf90f5c5a90a",
     "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
     "containerId": "",
-    "name": "get_sublet_listings",
+    "name": "get_sublet_listings1",
     "url": "localhost:8001/sublettees/sublet_listings",
     "method": "GET",
-    "sortNum": 20000,
+    "sortNum": 2500,
     "created": "2023-04-18T04:51:55.688Z",
-    "modified": "2023-04-18T23:41:30.547Z",
+    "modified": "2023-04-19T03:50:00.738Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].availability",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bathroom_count",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].city",
+        "action": "equal",
+        "value": "Miastko"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].end_date",
+        "action": "equal",
+        "value": "Mon, 25 Sep 2023 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].furnished_status",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].listing_id",
+        "action": "equal",
+        "value": "2"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].post_time",
+        "action": "equal",
+        "value": "Fri, 24 Jun 2022 19:19:20 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].rent",
+        "action": "equal",
+        "value": "1077.0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].roommate_count",
+        "action": "equal",
+        "value": "7"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].start_date",
+        "action": "equal",
+        "value": "Sun, 04 Jun 2023 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].zipcode",
+        "action": "equal",
+        "value": "77201"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bedroom_count",
+        "action": "equal",
+        "value": "1"
+      }
+    ]
+  },
+  {
+    "_id": "d7a2e54b-e2db-45b9-b3de-df1f106f95c3",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_housing_account1",
+    "url": "localhost:8001/sublettees/housing_account",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2023-04-19T00:35:56.082Z",
+    "modified": "2023-04-19T03:37:31.547Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].label",
+        "action": "equal",
+        "value": "Padriac Kleinstern"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].value",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[1].label",
+        "action": "equal",
+        "value": "Ad O'Dougherty"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[1].value",
+        "action": "equal",
+        "value": "2"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[49].label",
+        "action": "equal",
+        "value": "Eldridge Gregg"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[49].value",
+        "action": "equal",
+        "value": "50"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[48].label",
+        "action": "equal",
+        "value": "Evin Tregonna"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[48].value",
+        "action": "equal",
+        "value": "49"
+      }
+    ]
+  },
+  {
+    "_id": "0114f2cb-79b7-4d8c-b450-0bb093180d07",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "delete_sublet_offer_1",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/1",
+    "method": "DELETE",
+    "sortNum": 10000,
+    "created": "2023-04-19T01:26:26.571Z",
+    "modified": "2023-04-19T03:37:07.319Z",
     "headers": [],
     "params": [],
     "tests": [
@@ -21,8 +183,963 @@
       {
         "type": "res-body",
         "custom": "",
-        "action": "contains",
-        "value": "\"bathroom_count\": 1"
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "a0826341-d40b-444a-a474-95656a811add",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_sublet_listing_id_1",
+    "url": "localhost:8001/sublettees/sublet_listing/1",
+    "method": "GET",
+    "sortNum": 9980.5,
+    "created": "2023-04-19T01:31:03.051Z",
+    "modified": "2023-04-19T05:47:01.586Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "json-query",
+        "custom": "json[0].availability",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bathroom_count",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bedroom_count",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].city",
+        "action": "equal",
+        "value": "Kittila"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].furnished_status",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].listing_id",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].rent",
+        "action": "equal",
+        "value": "1776.0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].roommate_count",
+        "action": "equal",
+        "value": "8"
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "2bc38d31-b981-4f8f-9ad0-acdf4eed2897",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "delete_sublet_offer_2",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/2",
+    "method": "DELETE",
+    "sortNum": 15000,
+    "created": "2023-04-19T03:36:29.629Z",
+    "modified": "2023-04-19T03:37:08.742Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "f398e1e5-3c8a-4474-abad-9b0037e1fe0b",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_sublet_listings2",
+    "url": "localhost:8001/sublettees/sublet_listings",
+    "method": "GET",
+    "sortNum": 3750,
+    "created": "2023-04-19T03:38:32.914Z",
+    "modified": "2023-04-19T03:58:48.064Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].availability",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].bathroom_count",
+        "action": "equal",
+        "value": "5"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].city",
+        "action": "equal",
+        "value": "Sanyang"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].end_date",
+        "action": "equal",
+        "value": "Fri, 06 Oct 2023 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].furnished_status",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].listing_id",
+        "action": "equal",
+        "value": "50"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].post_time",
+        "action": "equal",
+        "value": "Sat, 23 Apr 2022 07:43:17 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].rent",
+        "action": "equal",
+        "value": "3415.0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].roommate_count",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].start_date",
+        "action": "equal",
+        "value": "Fri, 14 Jul 2023 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].zipcode",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[24].bedroom_count",
+        "action": "equal",
+        "value": "1"
+      }
+    ]
+  },
+  {
+    "_id": "3693bbe8-c368-45a2-8833-c4871307bfab",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_housing_account2",
+    "url": "localhost:8001/sublettees/housing_account",
+    "method": "GET",
+    "sortNum": 7500,
+    "created": "2023-04-19T03:59:24.830Z",
+    "modified": "2023-04-19T04:01:37.327Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[2].label",
+        "action": "equal",
+        "value": "Clary Longmuir"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[2].value",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[33].label",
+        "action": "equal",
+        "value": "Trever Juza"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[33].value",
+        "action": "equal",
+        "value": "34"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "istype",
+        "value": "string"
+      }
+    ]
+  },
+  {
+    "_id": "57114153-6185-486a-977b-7b795c15e89f",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_housing_account_id_1",
+    "url": "localhost:8001/sublettees/housing_account/1",
+    "method": "GET",
+    "sortNum": 8750,
+    "created": "2023-04-19T04:01:54.107Z",
+    "modified": "2023-04-19T04:08:27.989Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].birthdate",
+        "action": "equal",
+        "value": "Fri, 12 Apr 1996 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].email_address",
+        "action": "equal",
+        "value": "pkleinstern0@hao123.com"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].first_name",
+        "action": "equal",
+        "value": "Padriac"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].gender",
+        "action": "equal",
+        "value": "Male"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].group_id",
+        "action": "equal",
+        "value": "34"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].housing_account_id",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].last_name",
+        "action": "equal",
+        "value": "Kleinstern"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].moderator_account_id",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].student_status",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].user_id",
+        "action": "equal",
+        "value": "1"
+      }
+    ]
+  },
+  {
+    "_id": "88841956-93c0-4e9f-b06b-0b30ebfae755",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_housing_account_id_2",
+    "url": "localhost:8001/sublettees/housing_account/2",
+    "method": "GET",
+    "sortNum": 9375,
+    "created": "2023-04-19T04:08:35.570Z",
+    "modified": "2023-04-19T04:10:08.282Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].birthdate",
+        "action": "equal",
+        "value": "Sat, 12 Aug 1995 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].first_name",
+        "action": "equal",
+        "value": "Ad"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].gender",
+        "action": "equal",
+        "value": "Male"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].group_id",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].housing_account_id",
+        "action": "equal",
+        "value": "2"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].last_name",
+        "action": "equal",
+        "value": "O'Dougherty"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].moderator_account_id",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].student_status",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].user_id",
+        "action": "equal",
+        "value": "2"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].email_address",
+        "action": "equal",
+        "value": "aodougherty1@jiathis.com"
+      }
+    ]
+  },
+  {
+    "_id": "c05f7904-c2c9-41e8-b985-a19b90379ef4",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_housing_account_id_3",
+    "url": "localhost:8001/sublettees/housing_account/3",
+    "method": "GET",
+    "sortNum": 9687.5,
+    "created": "2023-04-19T04:08:48.924Z",
+    "modified": "2023-04-19T04:11:01.118Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].birthdate",
+        "action": "equal",
+        "value": "Sun, 23 Sep 2001 00:00:00 GMT"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].email_address",
+        "action": "equal",
+        "value": "clongmuir2@ustream.tv"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].first_name",
+        "action": "equal",
+        "value": "Clary"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].gender",
+        "action": "equal",
+        "value": "Female"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].group_id",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].housing_account_id",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].last_name",
+        "action": "equal",
+        "value": "Longmuir"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].moderator_account_id",
+        "action": "equal",
+        "value": "null"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].student_status",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].user_id",
+        "action": "equal",
+        "value": "3"
+      }
+    ]
+  },
+  {
+    "_id": "0b1d1cc6-9df8-4d1b-a82e-f84f7526a86f",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_housing_account_1",
+    "url": "localhost:8001/sublettees/housing_account/edit/1",
+    "method": "PUT",
+    "sortNum": 9843.8,
+    "created": "2023-04-19T04:11:36.314Z",
+    "modified": "2023-04-19T05:39:18.114Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"birthdate\": \"2001-05-01\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email_address\": \"jd2/@a.com\",\n  \"gender\": \"Male\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "5e7b5f28-f117-4eaa-aab2-7e47844d899b",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_housing_account_1 Copy",
+    "url": "localhost:8001/sublettees/housing_account/edit/1",
+    "method": "PUT",
+    "sortNum": 9921.9,
+    "created": "2023-04-19T04:17:35.804Z",
+    "modified": "2023-04-19T04:17:35.804Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "92be843c-bc90-42fc-b6ad-8e6920c4a27e",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_housing_account_3",
+    "url": "localhost:8001/sublettees/housing_account/edit/3",
+    "method": "PUT",
+    "sortNum": 9912.1,
+    "created": "2023-04-19T05:39:38.891Z",
+    "modified": "2023-04-19T05:41:11.404Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"birthdate\": \"2010-09-27\",\n  \"first_name\": \"Lulu\",\n  \"last_name\": \"Jack\",\n  \"email_address\": \"llcllj@hi.com\",\n  \"gender\": \"Female\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "a8514c21-a18c-4fc9-a225-ffdcece1901c",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_housing_account_2",
+    "url": "localhost:8001/sublettees/housing_account/edit/2",
+    "method": "PUT",
+    "sortNum": 9878,
+    "created": "2023-04-19T05:40:36.982Z",
+    "modified": "2023-04-19T05:41:38.903Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"birthdate\": \"1999-10-09\",\n  \"first_name\": \"Jacob\",\n  \"last_name\": \"Long\",\n  \"email_address\": \"catsrcool@gmail.com\",\n  \"gender\": \"Female\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "2affb99e-7634-4a59-ab26-a1db1260d4e7",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "post_sublet_offer_id_1",
+    "url": "localhost:8001/sublettees/sublet_listing/1/offer",
+    "method": "POST",
+    "sortNum": 9990.3,
+    "created": "2023-04-19T05:42:05.066Z",
+    "modified": "2023-04-19T05:52:31.543Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2023-04-30\",\n  \"end_date\": \"2024-04-01\",\n  \"rent\": 2222.0,\n  \"offering_user\": 6\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "9b1d3c5c-682d-4e43-8405-d38e4194d9ef",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_sublet_listing_id_2",
+    "url": "localhost:8001/sublettees/sublet_listing/2",
+    "method": "GET",
+    "sortNum": 9985.4,
+    "created": "2023-04-19T05:47:07.502Z",
+    "modified": "2023-04-19T05:48:10.920Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "json-query",
+        "custom": "json[0].availability",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bathroom_count",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bedroom_count",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].city",
+        "action": "equal",
+        "value": "Miastko"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].furnished_status",
+        "action": "equal",
+        "value": "1"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].listing_id",
+        "action": "equal",
+        "value": "2"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].rent",
+        "action": "equal",
+        "value": "1077.0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].roommate_count",
+        "action": "equal",
+        "value": "7"
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "1e754e38-0932-4df4-b09c-ae39b61f79ac",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "get_sublet_listing_id_3",
+    "url": "localhost:8001/sublettees/sublet_listing/3",
+    "method": "GET",
+    "sortNum": 9987.8,
+    "created": "2023-04-19T05:47:09.993Z",
+    "modified": "2023-04-19T05:49:00.723Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "json-query",
+        "custom": "json[0].availability",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bathroom_count",
+        "action": "equal",
+        "value": "4"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].bedroom_count",
+        "action": "equal",
+        "value": "7"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].city",
+        "action": "equal",
+        "value": "PrÃ³choma"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].furnished_status",
+        "action": "equal",
+        "value": "0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].listing_id",
+        "action": "equal",
+        "value": "3"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].rent",
+        "action": "equal",
+        "value": "1459.0"
+      },
+      {
+        "type": "json-query",
+        "custom": "json[0].roommate_count",
+        "action": "equal",
+        "value": "5"
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  },
+  {
+    "_id": "6f1ccc8c-bd9f-427c-8b13-d6ae2f0209df",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "post_sublet_offer_id_2",
+    "url": "localhost:8001/sublettees/sublet_listing/2/offer",
+    "method": "POST",
+    "sortNum": 9995.1,
+    "created": "2023-04-19T05:52:35.770Z",
+    "modified": "2023-04-19T05:53:22.997Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2026-10-21\",\n  \"end_date\": \"2027-01-01\",\n  \"rent\": 1999.0,\n  \"offering_user\": 34\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "bd8e9b16-740c-4748-b355-ce6cc0baafcd",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "post_sublet_offer_id_3",
+    "url": "localhost:8001/sublettees/sublet_listing/3/offer",
+    "method": "POST",
+    "sortNum": 9997.5,
+    "created": "2023-04-19T05:52:38.559Z",
+    "modified": "2023-04-19T05:53:44.343Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2023-09-01\",\n  \"end_date\": \"2024-04-01\",\n  \"rent\": 1010.0,\n  \"offering_user\": 10\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "4aac380c-9d6f-4cf2-8451-1f0baf84bd7a",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_sublet_offer_id_1",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/edit/1",
+    "method": "PUT",
+    "sortNum": 25000,
+    "created": "2023-04-19T05:54:41.195Z",
+    "modified": "2023-04-19T05:57:42.143Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2024-09-08\",\n  \"end_date\": \"2027-01-01\",\n  \"rent\": 2223.0,\n  \"offering_user\": 6\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "262a85f5-507f-4454-b47b-d8288bd293fb",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_sublet_offer_id_2",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/edit/2",
+    "method": "PUT",
+    "sortNum": 30000,
+    "created": "2023-04-19T05:56:46.764Z",
+    "modified": "2023-04-19T05:57:29.769Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2025-06-01\",\n  \"end_date\": \"2027-01-01\",\n  \"rent\": 4567.0,\n  \"offering_user\": 10\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "514a7570-e597-41ae-bc9c-72f701b0a6f8",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_sublet_offer_id_2 Copy",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/edit/1",
+    "method": "PUT",
+    "sortNum": 40000,
+    "created": "2023-04-19T05:57:01.590Z",
+    "modified": "2023-04-19T05:57:01.590Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2024-0908\",\n  \"end_date\": \"2027-01-01\",\n  \"rent\": 2223.0,\n  \"offering_user\": 6\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "_id": "658bb0d5-8909-4293-8c44-e78b1e87c7ac",
+    "colId": "80cdd9aa-6624-46d2-971e-6d354541fde2",
+    "containerId": "",
+    "name": "put_sublet_offer_id_3",
+    "url": "localhost:8001/sublettees/sublet_listing/offer/edit/3",
+    "method": "PUT",
+    "sortNum": 40000,
+    "created": "2023-04-19T05:57:06.992Z",
+    "modified": "2023-04-19T05:58:11.843Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"start_date\": \"2020-12-20\",\n  \"end_date\": \"2026-09-01\",\n  \"rent\": 4440.0,\n  \"offering_user\": 48\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": ""
       }
     ]
   }
